@@ -1,13 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+
+//components
 import Modal from "./Modal";
+
+//fontawesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+
+//redux hooks
 import { useAppSelector } from "../../redux/hooks";
 
 function Header() {
+  //modal
   const [modalWindow, setModalWindow] = useState<boolean>(false);
+
+  //basket cart store
   const basket = useAppSelector((state) => state.basket.basketItems);
 
+  //total basket items quantity
   const totalQuantity: number = basket?.reduce(
     (acc: any, item: any) => (acc += item.quantity),
     0

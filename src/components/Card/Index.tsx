@@ -1,10 +1,12 @@
-import { addToCart } from "../../redux/shoppingCart";
+
+//styles
 import "./card.css";
-// import { useNavigate } from "react-router-dom";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faStar, faStarHalf } from "@fortawesome/free-solid-svg-icons";
+
+//redux hooks
 import { useAppDispatch } from "../../redux/hooks";
-import { Product } from "../../types";
+
+// redux actions
+import { addToCart } from "../../redux/shoppingCart";
 
 type Props = {
  thumbnail: string,
@@ -22,7 +24,7 @@ function Card(props: Props) {
         id,
         product
     } = props;
-
+    
     const dispatch = useAppDispatch();
 
     const handleClick = () => {

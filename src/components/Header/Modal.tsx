@@ -2,6 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 
 import { ModalItem } from "../../types";
 
+//redux hooks
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+
+//shopping cart actions from redux
 import {
   deleteFromCart,
   buttonPlus,
@@ -9,42 +13,49 @@ import {
   inputOnChange,
 } from "../../redux/shoppingCart";
 
+//fontawesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
-
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 function Modal(props: ModalItem) {
   const { item, quantity } = props;
 
+  const dispatch = useAppDispatch();
+
+  //input
   const [inputValue, setInputValue] = useState<any>(quantity);
   const input = useRef<any>("");
-  const dispatch = useAppDispatch();
+
+  //shopping cart redux store
   const basket = useAppSelector((state) => state.basket.basketItems);
 
-  useEffect(()=> {
+  useEffect(() => {
+    //looking for negative quantity in the shopping-cart
     basket?.forEach((el) => {
       if (el.quantity <= 0) {
         dispatch(deleteFromCart(el));
       }
     });
-  }, [basket])
+  }, [basket]);
 
   const handleDelete = () => {
     dispatch(deleteFromCart(item));
   };
 
   const addOne = () => {
+    //input +
     dispatch(buttonPlus(item));
     setInputValue(inputValue + 1);
   };
 
   const minusOne = () => {
+    //input -
     dispatch(buttonMinus(item));
     setInputValue(inputValue - 1);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    //custom number in input
     e.preventDefault();
     dispatch(inputOnChange({ value: inputValue, product: item }));
   };
@@ -53,9 +64,7 @@ function Modal(props: ModalItem) {
       <div className="col-5 text-center">
         <h6 className="modal-cart__product-name">{item.title}</h6>
         <img className="modal-card-img" src={item.images[0]} alt={item.title} />
-        <span className="price">
-          {item?.price * item?.quantity}$
-        </span>
+        <span className="price">{item?.price * item?.quantity}$</span>
       </div>
       <div className="product-quantity gy-2">
         <div className="cart__qty">

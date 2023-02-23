@@ -2,9 +2,7 @@ import {call, put} from 'redux-saga/effects'
 import { setProducts } from '../../products';
 import { requestGetProducts } from '../requests/products'
 
-type WhatYouYield="foo"
-
-
+//worker function
 export function* handleGetProducts():Generator<any> {
     try{
         const response = yield call(requestGetProducts)

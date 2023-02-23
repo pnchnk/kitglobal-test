@@ -6,14 +6,12 @@ const initialState: ShoppingCartItems = {
   basketItems: [],
   }
 
-
   const shoppingCartSlice = createSlice({
     name: "shoppingCart",
     initialState,
     reducers: {
       addToCart: (state, { payload }:PayloadAction<ShoppingCartItem>) => {
         let isInArray = false;
-  
         // if the product is already exist in array
         state.basketItems?.forEach((el) => {
           if (el.id === payload.id) {
@@ -31,7 +29,8 @@ const initialState: ShoppingCartItems = {
         const id = payload.id;
         state.basketItems = state?.basketItems?.filter(item => item.id !== id);
       },
-  
+      
+      //input +
       buttonPlus: (state, { payload }) => {
         state.basketItems?.forEach((el) => {
           if (el.id === payload.id) {
@@ -39,7 +38,8 @@ const initialState: ShoppingCartItems = {
           }
         });
       },
-  
+      
+      //input -
       buttonMinus: (state, { payload }) => {
         state.basketItems?.forEach((el) => {
           if (el.id === payload.id) {
@@ -51,7 +51,7 @@ const initialState: ShoppingCartItems = {
         });
       },
   
-      //input change from Cart page
+      //input custom change
       inputOnChange: (state, { payload }) => {
         const id = payload.product.id
         const value  = Number(payload.value)
@@ -61,13 +61,8 @@ const initialState: ShoppingCartItems = {
           }
         });
       },
-
-      cleanCart:(state) => {
-        let emptyArr: any = []
-        state.basketItems = emptyArr;
-      },
     },
   });
 
-  export const { addToCart, deleteFromCart, buttonPlus, buttonMinus, inputOnChange, cleanCart } = shoppingCartSlice.actions;
+  export const { addToCart, deleteFromCart, buttonPlus, buttonMinus, inputOnChange } = shoppingCartSlice.actions;
   export default shoppingCartSlice.reducer;
