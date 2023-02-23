@@ -16,12 +16,13 @@ type Props = {
  product: any
 }
 
+
 function Card(props: Props) {
     const {
         thumbnail,
         price,
         title,
-        id,
+        // eslint-disable-next-line
         product
     } = props;
     
