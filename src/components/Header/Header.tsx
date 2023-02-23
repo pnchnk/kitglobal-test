@@ -51,8 +51,7 @@ function Header() {
                   <span className="cart__total-price">
                     Total Price:{"  "}
                     {basket.reduce(
-                      (acc, item) =>
-                        (acc += (item?.price) * item?.quantity),
+                      (acc, item) => (acc += item?.price * item?.quantity),
                       0
                     )}
                     $
